@@ -2,8 +2,10 @@ package com.example.sqlitetutorialfollowalongpractice;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 
 import androidx.annotation.Nullable;
 
@@ -47,4 +49,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long ret = db.insert(DatabaseHelper.TABLE_NAME, null, contentValues);
         return ret != -1;
     }
+
+//method to get all tuples
+    public Cursor getAllData(){
+        //Get a writeable db
+        SQLiteDatabase db = this.getWritableDatabase();
+        //Query all items
+        //Cursor data = db.rawQuery("SELECT * FROM Student_table")
+        Cursor data=  db.rawQuery("SELECT * from "+DatabaseHelper.TABLE_NAME, null);
+        return  data;
+    }
+
+
+
 }
